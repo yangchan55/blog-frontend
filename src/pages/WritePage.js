@@ -1,15 +1,19 @@
 import React from 'react';
-import Editor from '../components/write/Editor';
 import Responsive from '../components/common/Responsive';
-import TagBox from '../components/write/TagBox';
-import WriteActionButtons from '../components/write/WriteActionButtons';
+import EditorContainer from '../containers/wirte/EditorContainer';
+import TagBoxContainer from '../containers/wirte/TagBoxContainer';
+import WriteActionButtonsContainer from '../containers/wirte/WriteActionButtonsContainer';
+import { Helmet } from 'react-helmet-async';
 
 const WritePage = () => {
   return (
     <Responsive>
-      <Editor />
-      <TagBox />
-      <WriteActionButtons />
+      <Helmet>
+        <title>글 작성하기 - REACTERS</title>
+      </Helmet>
+      <EditorContainer />
+      <TagBoxContainer />
+      <WriteActionButtonsContainer />
     </Responsive>
   );
 };
