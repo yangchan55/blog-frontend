@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Responsive from './Responsive';
+import MaxResponsive from './MaxResponsive';
 import Button from './Button';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const HeaderBlock = styled.div`
 `;
 
 // Responsive 컴포넌트의 속성에 스타일을 추가해서 새로운 컴포넌트 생성
-const Wrapper = styled(Responsive)`
+const Wrapper = styled(MaxResponsive)`
   height: 4rem;
   display: flex;
   align-items: center;

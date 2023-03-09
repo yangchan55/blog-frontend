@@ -9,6 +9,7 @@ const EditorBlock = styled(Responsive)`
   // 페이지 위 아래 여백 지정
   padding-top: 5rem;
   padding-bottom: 5rem;
+  background: white;
 `;
 
 const TitleInput = styled.input`

@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet-async';
 
 const PostViewerBlock = styled(Responsive)`
   margin-top: 4rem;
+  padding-bottom: 4rem;
 `;
 
 const PostHead = styled.div`
@@ -24,6 +25,10 @@ const PostHead = styled.div`
 const PostContent = styled.div`
   font-size: 1.3125rem;
   color: ${palette.gray[8]};
+  img {
+    width: 100%;
+    object-fit: fill;
+  }
 `;
 
 const PostViewer = ({ post, error, loading, actionButtons }) => {
