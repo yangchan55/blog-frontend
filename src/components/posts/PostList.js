@@ -60,7 +60,6 @@ const PostItemBlock = styled.div`
   transition-duration: 0.5s;
   &:hover {
     transform: translateY(-10px);
-    cursor: pointer;
   }
   h2 {
     font-size: 1.2rem;
@@ -73,6 +72,9 @@ const PostItemBlock = styled.div`
   }
   p {
     font-size: 0.9rem;
+  }
+  a:hover {
+    cursor: pointer;
   }
 `;
 
