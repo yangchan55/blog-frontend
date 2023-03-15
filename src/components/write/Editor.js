@@ -5,6 +5,7 @@ import 'quill/dist/quill.snow.css';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive';
+import axios from 'axios';
 
 const EditorBlock = styled(Responsive)`
   // 페이지 위 아래 여백 지정
@@ -40,17 +41,46 @@ const Editor = ({ title, body, onChangeField }) => {
   const quillElement = useRef(null);
   const quillInstance = useRef(null);
 
+  const imageHandler = () => {
+    // 1. 이미지를 저장할 input type=file DOM을 만든다.
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    // 2. 인풋에 변화가 생긴다면 이미지를 선택한다.
+    input.addEventListener('change', async () => {
+      const file = input.files[0];
+      const formData = new FormData();
+      formData.append('img', file);
+
+      try {
+        const result = await axios.post('/api/posts/upload', formData);
+        const IMG_URL = 'http://localhost:4000/' + result.data.filename;
+        const range = quillInstance.current.getSelection();
+        quillInstance.current.insertEmbed(range.index, 'image', IMG_URL);
+      } catch (e) {
+        console.log(e);
+      }
+    });
+  };
+
   useEffect(() => {
     quillInstance.current = new Quill(quillElement.current, {
       theme: 'snow',
       placeholder: '내용을 작성하세요...',
       modules: {
-        toolbar: [
-          [{ header: '1' }, { header: '2' }],
-          ['bold', 'italic', 'underline', 'strike'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          ['blockquote', 'code-block', 'link', 'image'],
-        ],
+        toolbar: {
+          container: [
+            [{ header: '1' }, { header: '2' }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            ['blockquote', 'code-block', 'link', 'image'],
+          ],
+          handlers: {
+            image: imageHandler,
+          },
+        },
       },
     });
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import MaxResponsive from '../common/MaxResponsive';
 import palette from '../../lib/styles/palette';
@@ -54,7 +54,7 @@ const PostItemBlock = styled.div`
   border-radius: 4px;
   flex-direction: column;
   margin: 1rem;
-  padding: 1rem;
+  //padding: 1rem;
   background: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
   transition-duration: 0.5s;
@@ -65,6 +65,7 @@ const PostItemBlock = styled.div`
     font-size: 1.2rem;
     margin-bottom: 0;
     margin-top: 0;
+    padding: 1rem;
     &:hover {
       color: ${palette.gray[6]};
     }
@@ -84,14 +85,42 @@ const PostCardBlock = styled.div`
   min-height: 20rem;
 `;
 
+const PostContentBlock = styled.div`
+  img {
+    width: 100%;
+    object-fit: fill;
+  }
+`;
+
 const PostItem = ({ post }) => {
   const { publishedDate, user, tags, title, body, _id } = post;
+  const imgArr = ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg'];
+  let imgSrc =
+    'http://localhost:4000/' +
+    imgArr[Math.floor(Math.random() * imgArr.length)];
+  const [image, setImage] = useState('<img src="' + imgSrc + '"/>');
+
+  useEffect(() => {
+    const imgReg = /<img[^>]*src=[^>]*>/g;
+    const isImage = imgReg.exec(body);
+    console.log(isImage);
+    if (isImage !== null) {
+      console.log(isImage[0]);
+      setImage(isImage[0]);
+      console.log(image);
+    }
+  }, [body, image]);
+
   return (
     <PostItemBlock>
       <PostCardBlock>
         <Link to={`/${user.username}/${_id}`}>
+          <PostContentBlock
+            dangerouslySetInnerHTML={{
+              __html: image,
+            }}
+          />
           <h2>{title}</h2>
-          <p>{body}</p>
         </Link>
         <SubInfo
           username={user.username}
