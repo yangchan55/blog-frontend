@@ -47,14 +47,13 @@ const PostItemBlock = styled.div`
 const PostItemCardBoxBlock = styled.div`
   display: flex;
   flex-wrap: wrap;
+  gap: 2.5rem;
 `;
 
 const PostItemBlock = styled.div`
   width: 19rem;
   border-radius: 4px;
   flex-direction: column;
-  margin: 1rem;
-  //padding: 1rem;
   background: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
   transition-duration: 0.5s;
@@ -88,7 +87,8 @@ const PostCardBlock = styled.div`
 const PostContentBlock = styled.div`
   img {
     width: 100%;
-    object-fit: fill;
+    height: 170px;
+    object-fit: cover;
   }
 `;
 
@@ -103,11 +103,8 @@ const PostItem = ({ post }) => {
   useEffect(() => {
     const imgReg = /<img[^>]*src=[^>]*>/g;
     const isImage = imgReg.exec(body);
-    console.log(isImage);
     if (isImage !== null) {
-      console.log(isImage[0]);
       setImage(isImage[0]);
-      console.log(image);
     }
   }, [body, image]);
 

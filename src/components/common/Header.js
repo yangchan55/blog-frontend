@@ -9,6 +9,7 @@ const HeaderBlock = styled.div`
   width: 100%;
   background: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  z-index: 99;
 `;
 
 // Responsive 컴포넌트의 속성에 스타일을 추가해서 새로운 컴포넌트 생성
