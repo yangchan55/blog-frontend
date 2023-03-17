@@ -11,7 +11,8 @@ const SubInfoBlock = styled.div`
     `}
   color: ${palette.gray[6]};
   font-size: 0.9rem;
-  padding: 1rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
 
   span + span:before {
     color: ${palette.gray[4]};

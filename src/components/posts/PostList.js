@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import MaxResponsive from '../common/MaxResponsive';
 import palette from '../../lib/styles/palette';
@@ -84,7 +84,7 @@ const PostCardBlock = styled.div`
   min-height: 20rem;
 `;
 
-const PostContentBlock = styled.div`
+const PostImageBlock = styled.div`
   img {
     width: 100%;
     height: 170px;
@@ -92,8 +92,15 @@ const PostContentBlock = styled.div`
   }
 `;
 
+const PostContentBlock = styled.p`
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+`;
+
 const PostItem = ({ post }) => {
-  const { publishedDate, user, tags, title, body, _id } = post;
+  const { publishedDate, user, tags, title, body, image, _id } = post;
+  /*
   const imgArr = ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg'];
   let imgSrc =
     'http://localhost:4000/' +
@@ -107,23 +114,27 @@ const PostItem = ({ post }) => {
       setImage(isImage[0]);
     }
   }, [body, image]);
+  */
 
   return (
     <PostItemBlock>
       <PostCardBlock>
         <Link to={`/${user.username}/${_id}`}>
-          <PostContentBlock
+          <PostImageBlock
             dangerouslySetInnerHTML={{
               __html: image,
             }}
           />
           <h2>{title}</h2>
+          <PostContentBlock
+            dangerouslySetInnerHTML={{ __html: body.replace(/<[^>]*>?/g, ' ') }}
+          />
         </Link>
-        <SubInfo
-          username={user.username}
-          publishedDate={new Date(publishedDate)}
-        />
       </PostCardBlock>
+      <SubInfo
+        username={user.username}
+        publishedDate={new Date(publishedDate)}
+      />
 
       <Tags tags={tags} />
     </PostItemBlock>

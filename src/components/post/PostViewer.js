@@ -29,6 +29,16 @@ const PostContent = styled.div`
     width: 100%;
     object-fit: fill;
   }
+  pre {
+    background: #23241f;
+    color: white;
+    font-family: 'Fira Mono', source-code-pro, Menlo, Monaco, Consolas,
+      'Courier New', monospace;
+    font-size: 0.875rem;
+    padding: 1rem;
+    letter-spacing: 0px;
+    line-height: 1.5;
+  }
 `;
 
 const PostViewer = ({ post, error, loading, actionButtons }) => {

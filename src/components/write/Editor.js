@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive';
 import axios from 'axios';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
 
 const EditorBlock = styled(Responsive)`
   // 페이지 위 아래 여백 지정
@@ -34,6 +36,13 @@ const QuillWrapper = styled.div`
   }
   .ql-editor .ql-blank::before {
     left: 0px;
+  }
+  pre {
+    font-family: 'Fira Mono', source-code-pro, Menlo, Monaco, Consolas,
+      'Courier New', monospace;
+    font-size: 0.875rem;
+    letter-spacing: 0px;
+    line-height: 1.5;
   }
 `;
 
@@ -65,6 +74,10 @@ const Editor = ({ title, body, onChangeField }) => {
     });
   };
 
+  hljs.configure({
+    languages: ['javascript', 'python', 'java', 'sql'],
+  });
+
   useEffect(() => {
     quillInstance.current = new Quill(quillElement.current, {
       theme: 'snow',
@@ -80,6 +93,9 @@ const Editor = ({ title, body, onChangeField }) => {
           handlers: {
             image: imageHandler,
           },
+        },
+        syntax: {
+          highlight: (text) => hljs.highlightAuto(text).value,
         },
       },
     });
@@ -100,7 +116,7 @@ const Editor = ({ title, body, onChangeField }) => {
     quillInstance.current.root.innerHTML = body;
   }, [body]);
 
-  const onChangeTile = (e) => {
+  const onChangeTitle = (e) => {
     onChangeField({ key: 'title', value: e.target.value });
   };
 
@@ -108,7 +124,7 @@ const Editor = ({ title, body, onChangeField }) => {
     <EditorBlock>
       <TitleInput
         placeholder="제목을 입력하세요"
-        onChange={onChangeTile}
+        onChange={onChangeTitle}
         value={title}
       />
       <QuillWrapper>
